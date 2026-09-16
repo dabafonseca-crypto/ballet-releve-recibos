@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recibo com Logo | Ballet Relevê</title>
+  <meta name="theme-color" content="#f95aaa" />
+
+  <style>
+    :root{
+      --pink:#ff5aa7;
+      --pink-dark:#e44593;
+      --pink-soft:#ffd5e7;
+      --pink-very-soft:#fff3f8;
+      --border:#f3b9d1;
+      --text:#4f4150;
+      --muted:#887986;
+      --bg:#f7f7f8;
+      --white:#ffffff;
+      --shadow:0 14px 35px rgba(224, 83, 148, 0.12);
+      --radius-xl:22px;
+      --radius-lg:16px;
+      --radius-md:12px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:#fcfcfd;
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width:1300px;
+      margin:0 auto;
+      padding:14px;
+    }
+
+    .app{
+      background:var(--bg);
+      border:2px solid var(--pink-soft);
+      border-radius:24px;
+      padding:26px 28px 32px;
+      box-shadow:var(--shadow);
+    }
+
+    .top-icon{
+      text-align:center;
+      font-size:46px;
+      line-height:1;
+      margin:4px 0 8px;
+    }
+
+    .title{
+      text-align:center;
+      color:var(--pink);
+      margin:0 0 26px;
+      font-size:22px;
+      font-weight:800;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+
+    .toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .toolbar-left,
+    .toolbar-right{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+
+    .btn{
+      border:none;
+      border-radius:16px;
+      padding:13px 18px;
+      font:inherit;
+      font-weight:700;
+      cursor:pointer;
+      transition:.18s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .btn-outline{
+      color:var(--pink-dark);
+      background:#fff;
+      border:1.5px solid var(--pink-soft);
+    }
+
+    .btn-neutral{
+      background:#ece7ea;
+      color:#5d505b;
+    }
+
+    .btn-primary{
+      background:linear-gradient(180deg, #ff73b7, var(--pink));
+      color:#fff;
+      box-shadow:0 10px 22px rgba(255, 90, 167, .25);
+    }
+
+    .btn-pdf{
+      background:#e50914;
+      color:#fff;
+      box-shadow:0 8px 18px rgba(229, 9, 20, .18);
+    }
+
+    .btn-pdf:hover{
+      background:#c90812;
+    }
+
+    .logo-status{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px 16px;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
+    .field label{
+      display:block;
+      margin:0 0 8px;
+      font-weight:800;
+      font-size:14px;
+      color:var(--pink);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    textarea{
+      width:100%;
+      border:1.6px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      padding:14px 14px;
+      font:inherit;
+      color:var(--text);
+      outline:none;
+      transition:.2s ease;
+    }
+
+    input[readonly]{
+      background:#f9eef3;
+      color:#7b6875;
+    }
+
+    input:focus,
+    textarea:focus{
+      border-color:var(--pink);
+      box-shadow:0 0 0 4px rgba(255,90,167,.10);
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    .triple{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:16px;
+    }
+
+    .radio-row{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:16px;
+      padding-top:9px;
+    }
+
+    .radio-row.compact{
+      gap:18px;
+    }
+
+    .radio-item,
+    .check-item{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      color:#514652;
+      font-weight:500;
+    }
+
+    .radio-item input,
+    .check-item input{
+      accent-color:var(--pink-dark);
+      width:17px;
+      height:17px;
+    }
+
+    .referente-grid{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:18px;
+      align-items:center;
+    }
+
+    .separator{
+      border-top:1.5px dashed var(--pink-soft);
+      margin:20px 0;
+    }
+
+    .footer-actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hint{
+      margin-top:12px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    .status{
+      min-height:22px;
+      margin-top:12px;
+      color:#72616d;
+      font-size:13px;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(62, 35, 53, .50);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:999;
+    }
+
+    .modal.open{
+      display:flex;
+    }
+
+    .modal-card{
+      background:#fff;
+      width:min(980px, 100%);
+      max-height:92vh;
+      border-radius:22px;
+      box-shadow:0 30px 60px rgba(42, 17, 31, .30);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .modal-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 18px;
+      border-bottom:1px solid #f0d4e1;
+      background:linear-gradient(180deg, #fff9fc, #fff);
+    }
+
+    .modal-head h2{
+      margin:0;
+      font-size:18px;
+      color:var(--pink-dark);
+    }
+
+    .modal-head-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .modal-body{
+      padding:18px;
+      overflow:auto;
+      background:#f9f9fb;
+    }
+
+    .receipts-preview{
+      display:grid;
+      gap:18px;
+    }
+
+    .receipt{
+      width:100%;
+      background:#fff;
+      border:1.4px solid #222;
+      border-radius:8px;
+      padding:22px 28px 20px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:none;
+      color:#111;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .copy-tag{
+      display:inline-block;
+      margin-bottom:8px;
+      padding:4px 8px;
+      border:1px solid #bbb;
+      border-radius:999px;
+      font-size:10px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      color:#555;
+    }
+
+    .receipt-header{
+      display:grid;
+      grid-template-columns:180px 1fr 180px;
+      gap:18px;
+      align-items:start;
+      min-height:90px;
+      margin-bottom:10px;
+    }
+
+    .receipt-brand{
+      min-width:0;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+    }
+
+    .receipt-logo{
+      width:120px;
+      height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      overflow:hidden;
+      background:transparent;
+      border:none;
+      border-radius:0;
+    }
+
+    .receipt-logo img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      object-position:left center;
+      display:block;
+    }
+
+    .receipt-logo .placeholder{
+      font-size:34px;
+      color:#e44593;
+    }
+
+    .receipt-title{
+      margin:22px 0 0;
+      text-align:center;
+      color:#111;
+      font-size:16px;
+      font-weight:700;
+      text-transform:none;
+      letter-spacing:0;
+    }
+
+    .receipt-amount-wrap{
+      display:flex;
+      justify-content:flex-end;
+      align-items:flex-start;
+      padding-top:28px;
+    }
+
+    .receipt-amount{
+      border:1px solid #111;
+      border-radius:7px;
+      padding:6px 10px;
+      font-size:13px;
+      font-weight:700;
+      white-space:nowrap;
+      background:#fff;
+    }
+
+    .receipt-body{
+      margin-top:4px;
+      font-size:13.5px;
+      line-height:1.45;
+    }
+
+    .receipt-body p{
+      margin:0 0 6px;
+      text-align:left;
+    }
+
+    .receipt-body strong{
+      font-weight:700;
+    }
+
+    .optional-line{
+      margin-top:4px !important;
+      color:#222;
+    }
+
+    .receipt-date{
+      margin-top:14px;
+      text-align:right;
+      font-size:13px;
+    }
+
+    .signature{
+      margin-top:28px;
+      display:flex;
+      justify-content:center;
+      padding-top:0;
+    }
+
+    .signature-block{
+      width:min(440px, 80%);
+      text-align:center;
+    }
+
+    .signature-space{
+      height:72px;
+    }
+
+    .signature-line{
+      border-top:1px solid #9ca3af;
+      margin-bottom:5px;
+    }
+
+    .signature-block strong{
+      display:block;
+      color:#111;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .signature-block small{
+      display:block;
+      margin-top:2px;
+      color:#111;
+      font-size:11.5px;
+      line-height:1.4;
+    }
+
+    .receipt-number-print{
+      margin-top:10px;
+      text-align:right;
+      font-size:10px;
+      color:#666;
+    }
+
+    .preview-note{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    .auth-screen{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,90,167,.12), transparent 28%),
+        radial-gradient(circle at 85% 85%, rgba(205,184,232,.18), transparent 28%),
+        #fcfcfd;
+    }
+
+    .auth-card{
+      width:min(430px, 100%);
+      background:#fff;
+      border:1.5px solid var(--pink-soft);
+      border-radius:24px;
+      padding:34px 30px 28px;
+      box-shadow:0 18px 45px rgba(224,83,148,.14);
+    }
+
+    .auth-logo{
+      width:94px;
+      height:76px;
+      margin:0 auto 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .auth-logo img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+    }
+
+    .auth-logo-fallback{
+      font-size:44px;
+      line-height:1;
+    }
+
+    .auth-card h1{
+      margin:0;
+      text-align:center;
+      color:var(--pink-dark);
+      font-size:24px;
+    }
+
+    .auth-card .auth-subtitle{
+      margin:7px 0 24px;
+      text-align:center;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .auth-field{
+      margin-bottom:15px;
+    }
+
+    .auth-field label{
+      display:block;
+      margin-bottom:7px;
+      color:var(--pink-dark);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .auth-field input{
+      width:100%;
+      border:1.5px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      padding:14px;
+      font:inherit;
+      color:var(--text);
+      outline:none;
+    }
+
+    .auth-field input:focus{
+      border-color:var(--pink);
+      box-shadow:0 0 0 4px rgba(255,90,167,.10);
+    }
+
+    .auth-button{
+      width:100%;
+      justify-content:center;
+      margin-top:3px;
+    }
+
+    .auth-status{
+      min-height:20px;
+      margin-top:12px;
+      text-align:center;
+      color:#7b6472;
+      font-size:13px;
+      line-height:1.4;
+    }
+
+    .user-bar{
+      display:flex;
+      gap:9px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .user-email{
+      max-width:250px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .btn-logout{
+      background:#fff;
+      color:#6c5664;
+      border:1px solid #e7d8df;
+    }
+
+    @media print{
+      .auth-screen,
+      .user-bar{
+        display:none !important;
+      }
+    }
+
+    @media (max-width:900px){
+      .form-grid,
+      .triple,
+      .referente-grid{
+        grid-template-columns:1fr;
+      }
+
+      .receipt-info{
+        grid-template-columns:1fr;
+      }
+
+      .receipt-header{
+        flex-direction:column;
+      }
+
+      .receipt-number{
+        text-align:left;
+      }
+    }
+
+    @media (max-width:700px){
+      .app{
+        padding:18px 14px 22px;
+      }
+
+      .footer-actions{
+        justify-content:stretch;
+      }
+
+      .footer-actions .btn,
+      .toolbar .btn{
+        width:100%;
+        justify-content:center;
+      }
+
+      .toolbar,
+      .toolbar-left,
+      .toolbar-right{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .receipt{
+        padding:20px 16px 18px;
+      }
+
+      .receipt-value{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .receipt-value strong{
+        font-size:26px;
+      }
+
+      .receipt-title{
+        font-size:23px;
+      }
+
+      .top-icon{
+        font-size:38px;
+      }
+    }
+
+    @media print{
+      body{
+        background:#fff;
+      }
+
+      .wrap,
+      .app,
+      .modal,
+      .modal-card,
+      .modal-body,
+      .receipts-preview{
+        padding:0 !important;
+        margin:0 !important;
+        max-width:none !important;
+        width:auto !important;
+        background:#fff !important;
+        box-shadow:none !important;
+        border:none !important;
+      }
+
+      .no-print{
+        display:none !important;
+      }
+
+      .modal{
+        position:static !important;
+        display:block !important;
+      }
+
+      .modal-card{
+        overflow:visible !important;
+      }
+
+      .receipt{
+        page-break-inside:avoid;
+        break-inside:avoid;
+        margin:0 0 10mm 0 !important;
+        border:1px solid #111 !important;
+        border-radius:6px !important;
+        box-shadow:none !important;
+        padding:16mm 9mm 8mm !important;
+      }
+
+      .receipt-header{
+        min-height:24mm !important;
+      }
+
+      .signature{
+        margin-top:12mm !important;
+      }
+
+      .signature-space{
+        height:18mm !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="auth-screen" id="authScreen">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img
+          src="./assets/logo-ballet-releve.png"
+          alt="Ballet Relevê"
+          onerror="this.style.display='none'; document.getElementById('authLogoFallback').style.display='block';"
+        />
+        <div class="auth-logo-fallback" id="authLogoFallback" style="display:none;">🩰</div>
+      </div>
+
+      <h1>Ballet Relevê</h1>
+      <p class="auth-subtitle">Acesso restrito ao gerador de recibos</p>
+
+      <form id="loginForm">
+        <div class="auth-field">
+          <label for="loginEmail">E-mail</label>
+          <input id="loginEmail" type="email" autocomplete="username" required />
+        </div>
+
+        <div class="auth-field">
+          <label for="loginSenha">Senha</label>
+          <input id="loginSenha" type="password" autocomplete="current-password" required />
+        </div>
+
+        <button class="btn btn-primary auth-button" id="btnEntrar" type="submit">
+          Entrar
+        </button>
+
+        <div class="auth-status" id="authStatus"></div>
+      </form>
+    </div>
+  </section>
+
+  <div class="wrap hidden" id="appWrap">
+    <section class="app">
+      <div class="top-icon">🩰</div>
+      <h1 class="title">Recibo com logo</h1>
+
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="logo-status">
+            Logo fixa do Ballet Relevê carregada automaticamente do GitHub.
+          </div>
+        </div>
+
+        <div class="toolbar-right no-print">
+          <button class="btn btn-outline" id="btnVer" type="button">Ver recibo</button>
+          <button class="btn btn-pdf" id="btnPDF" type="button">📄 PDF</button>
+          <button class="btn btn-outline" id="btnImprimir" type="button">🖨️ Imprimir</button>
+          <div class="user-bar">
+            <span class="user-email" id="userEmail"></span>
+            <button class="btn btn-logout" id="btnSair" type="button">Sair</button>
+          </div>
+        </div>
+      </div>
+
+      <form id="formRecibo" novalidate>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="valor">Valor (R$)</label>
+            <input id="valor" name="valor" type="number" min="0" step="0.01" placeholder="0,00" />
+          </div>
+
+          <div class="field">
+            <label for="pagador">Pagador</label>
+            <input id="pagador" name="pagador" type="text" placeholder="Nome do pagador" />
+          </div>
+
+          <div class="field">
+            <label for="cpfPagador">CPF ou CNPJ (opcional)</label>
+            <input id="cpfPagador" name="cpfPagador" type="text" placeholder="000.000.000-00" />
+          </div>
+
+          <div class="field full">
+            <label>Referente</label>
+            <div class="referente-grid">
+              <div class="radio-row compact">
+                <label class="radio-item"><input type="radio" name="prefixo" value="à" checked /> à</label>
+                <label class="radio-item"><input type="radio" name="prefixo" value="a" /> a</label>
+                <label class="radio-item"><input type="radio" name="prefixo" value="às" /> às</label>
+                <label class="radio-item"><input type="radio" name="prefixo" value="ao" /> ao</label>
+                <label class="radio-item"><input type="radio" name="prefixo" value="aos" /> aos</label>
+              </div>
+
+              <input id="referenteTexto" name="referenteTexto" type="text" placeholder="Descrição do pagamento" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="emissor">Nome do emissor</label>
+            <input id="emissor" name="emissor" type="text" value="Ballet Relevê" readonly />
+          </div>
+
+          <div class="field">
+            <label for="cnpjEmissor">CPF ou CNPJ</label>
+            <input id="cnpjEmissor" name="cnpjEmissor" type="text" value="15.555.537/0001-95" readonly />
+          </div>
+        </div>
+
+        <div class="triple" style="margin-top: 14px;">
+          <div class="field">
+            <label for="telefone">Telefone (opcional)</label>
+            <input id="telefone" name="telefone" type="text" placeholder="(89) 90000-0000" />
+          </div>
+
+          <div class="field">
+            <label for="cidade">Cidade</label>
+            <input id="cidade" name="cidade" type="text" value="Picos - PI" readonly />
+          </div>
+
+          <div class="field">
+            <label for="dataPagamento">Data do pagamento</label>
+            <input id="dataPagamento" name="dataPagamento" type="date" />
+          </div>
+        </div>
+
+        <div class="field full" style="margin-top: 8px;">
+          <label>Forma de Pagamento:</label>
+          <div class="radio-row">
+            <label class="radio-item"><input type="radio" name="formaPagamento" value="Dinheiro" /> Dinheiro</label>
+            <label class="radio-item"><input type="radio" name="formaPagamento" value="Pix" checked /> Pix</label>
+            <label class="radio-item"><input type="radio" name="formaPagamento" value="Cheque" /> Cheque</label>
+            <label class="radio-item"><input type="radio" name="formaPagamento" value="Transferência/Depósito" /> Transferência/Depósito</label>
+            <label class="radio-item"><input type="radio" name="formaPagamento" value="Cartão de Crédito/Débito" /> Cartão de Crédito/Débito</label>
+            <label class="radio-item"><input type="radio" name="formaPagamento" value="Boleto" /> Boleto</label>
+          </div>
+        </div>
+
+        <div class="field full" style="margin-top: 10px;">
+          <label class="check-item"><input id="duasVias" type="checkbox" /> Duas vias?</label>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="footer-actions no-print">
+          <button class="btn btn-neutral" id="btnLimpar" type="button">🧹 Limpar</button>
+          <button class="btn btn-primary" id="btnGerar" type="button">📄 Gerar Recibo</button>
+        </div>
+
+        <div class="hint">
+          A logo é carregada automaticamente do arquivo assets/logo-ballet-releve.png do seu GitHub. Você só precisa enviá-la uma única vez ao repositório.
+        </div>
+        <div class="status" id="status"></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal no-print" id="previewModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2>Pré-visualização do recibo</h2>
+        <div class="modal-head-actions">
+          <button class="btn btn-pdf" id="btnPdfInside" type="button">📄 PDF</button>
+          <button class="btn btn-outline" id="btnPrintInside" type="button">🖨️ Imprimir</button>
+          <button class="btn btn-neutral" id="btnFecharModal" type="button">Fechar</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="receipts-preview" id="receiptsPreview"></div>
+        <div class="preview-note">A pré-visualização abaixo é exatamente a área usada para gerar o PDF ou imprimir.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <script>
+    const SUPABASE_URL = "https://xccqttgbofdinjkqbmjv.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_IETyFM-fBesrf1Z3uvM4vQ_D5kUn4iR";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY,
+      {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true
+        }
+      }
+    );
+
+    /*
+      LOGO FIXA DO BALLET
+      -------------------
+      Coloque a imagem no seu repositório GitHub em:
+      assets/logo-ballet-releve.png
+
+      Depois disso, você NÃO precisa subir a logo novamente.
+      O sistema sempre tentará carregá-la automaticamente.
+    */
+    const LOGO_PADRAO_URL = "./assets/logo-ballet-releve.png";
+
+    const EMPRESA = {
+      nome: "Ballet Relevê",
+      cnpj: "15555537000195",
+      cnpjFormatado: "15.555.537/0001-95",
+      cidade: "Picos - PI",
+      subtitulo: "Recibo emitido pelo Ballet Relevê"
+    };
+
+    const authScreen = document.getElementById("authScreen");
+    const appWrap = document.getElementById("appWrap");
+    const loginForm = document.getElementById("loginForm");
+    const loginEmail = document.getElementById("loginEmail");
+    const loginSenha = document.getElementById("loginSenha");
+    const btnEntrar = document.getElementById("btnEntrar");
+    const authStatus = document.getElementById("authStatus");
+    const userEmail = document.getElementById("userEmail");
+    const btnSair = document.getElementById("btnSair");
+
+    const form = document.getElementById("formRecibo");
+    const valor = document.getElementById("valor");
+    const pagador = document.getElementById("pagador");
+    const cpfPagador = document.getElementById("cpfPagador");
+    const referenteTexto = document.getElementById("referenteTexto");
+    const emissor = document.getElementById("emissor");
+    const cnpjEmissor = document.getElementById("cnpjEmissor");
+    const telefone = document.getElementById("telefone");
+    const cidade = document.getElementById("cidade");
+    const dataPagamento = document.getElementById("dataPagamento");
+    const duasVias = document.getElementById("duasVias");
+    const statusEl = document.getElementById("status");
+
+    const btnGerar = document.getElementById("btnGerar");
+    const btnVer = document.getElementById("btnVer");
+    const btnPDF = document.getElementById("btnPDF");
+    const btnImprimir = document.getElementById("btnImprimir");
+    const btnLimpar = document.getElementById("btnLimpar");
+
+    const previewModal = document.getElementById("previewModal");
+    const receiptsPreview = document.getElementById("receiptsPreview");
+    const btnFecharModal = document.getElementById("btnFecharModal");
+    const btnPdfInside = document.getElementById("btnPdfInside");
+    const btnPrintInside = document.getElementById("btnPrintInside");
+
+    let ultimoRecibo = null;
+
+    function mostrarApp(session){
+      const autenticado = !!session?.user;
+
+      authScreen.classList.toggle("hidden", autenticado);
+      appWrap.classList.toggle("hidden", !autenticado);
+
+      if(autenticado){
+        userEmail.textContent = session.user.email || "";
+        authStatus.textContent = "";
+        loginSenha.value = "";
+      }else{
+        userEmail.textContent = "";
+        fecharPreview();
+      }
+    }
+
+    async function verificarSessao(){
+      const { data, error } = await supabaseClient.auth.getSession();
+
+      if(error){
+        console.error(error);
+        mostrarApp(null);
+        return;
+      }
+
+      mostrarApp(data.session);
+    }
+
+    async function entrar(event){
+      event.preventDefault();
+
+      const email = loginEmail.value.trim();
+      const senha = loginSenha.value;
+
+      if(!email || !senha){
+        authStatus.textContent = "Informe o e-mail e a senha.";
+        return;
+      }
+
+      btnEntrar.disabled = true;
+      btnEntrar.textContent = "Entrando...";
+      authStatus.textContent = "";
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password: senha
+      });
+
+      btnEntrar.disabled = false;
+      btnEntrar.textContent = "Entrar";
+
+      if(error){
+        console.error(error);
+        authStatus.textContent = "E-mail ou senha incorretos.";
+        return;
+      }
+
+      mostrarApp(data.session);
+    }
+
+    async function sair(){
+      btnSair.disabled = true;
+      btnSair.textContent = "Saindo...";
+
+      const { error } = await supabaseClient.auth.signOut();
+
+      btnSair.disabled = false;
+      btnSair.textContent = "Sair";
+
+      if(error){
+        console.error(error);
+        statusEl.textContent = "Não foi possível encerrar a sessão.";
+        return;
+      }
+
+      mostrarApp(null);
+      loginEmail.focus();
+    }
+
+    function hojeISO(){
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function formatarDataBR(dataIso){
+      if(!dataIso) return "";
+      const [ano, mes, dia] = dataIso.split("-");
+      return `${dia}/${mes}/${ano}`;
+    }
+
+    function formatarMoeda(v){
+      const numero = Number(v || 0);
+      return new Intl.NumberFormat("pt-BR", {
+        style:"currency",
+        currency:"BRL"
+      }).format(numero);
+    }
+
+    function gerarNumeroRecibo(){
+      const now = new Date();
+      const data = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}`;
+      const hora = `${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}${String(now.getSeconds()).padStart(2,"0")}`;
+      return `REL-${data}-${hora}`;
+    }
+
+    function obterPrefixo(){
+      const selecionado = document.querySelector('input[name="prefixo"]:checked');
+      return selecionado ? selecionado.value : "à";
+    }
+
+    function obterFormaPagamento(){
+      const selecionado = document.querySelector('input[name="formaPagamento"]:checked');
+      return selecionado ? selecionado.value : "Pix";
+    }
+
+    function obterLogoSalva(){
+      return LOGO_PADRAO_URL;
+    }
+
+
+    function validarFormulario(){
+      if(!valor.value || Number(valor.value) <= 0){
+        statusEl.textContent = "Informe um valor válido.";
+        valor.focus();
+        return false;
+      }
+
+      if(!pagador.value.trim()){
+        statusEl.textContent = "Informe o nome do pagador.";
+        pagador.focus();
+        return false;
+      }
+
+      if(!referenteTexto.value.trim()){
+        statusEl.textContent = "Informe a descrição do pagamento.";
+        referenteTexto.focus();
+        return false;
+      }
+
+      statusEl.textContent = "";
+      return true;
+    }
+
+    function coletarDados(){
+      return {
+        numero: ultimoRecibo?.numero || gerarNumeroRecibo(),
+        valor: Number(valor.value || 0),
+        pagador: pagador.value.trim(),
+        cpf_pagador: cpfPagador.value.trim(),
+        prefixo_referente: obterPrefixo(),
+        referente_texto: referenteTexto.value.trim(),
+        referente_completo: `${obterPrefixo()} ${referenteTexto.value.trim()}`.trim(),
+        emissor: emissor.value.trim(),
+        cnpj: EMPRESA.cnpj,
+        cnpj_formatado: EMPRESA.cnpjFormatado,
+        telefone: telefone.value.trim(),
+        cidade: cidade.value.trim(),
+        data_pagamento: dataPagamento.value || hojeISO(),
+        forma_pagamento: obterFormaPagamento(),
+        duas_vias: duasVias.checked
+      };
+    }
+
+    function inteiroPorExtenso(n){
+      n = Math.floor(Number(n) || 0);
+
+      const unidades = ["","um","dois","três","quatro","cinco","seis","sete","oito","nove"];
+      const especiais = ["dez","onze","doze","treze","quatorze","quinze","dezesseis","dezessete","dezoito","dezenove"];
+      const dezenas = ["","","vinte","trinta","quarenta","cinquenta","sessenta","setenta","oitenta","noventa"];
+      const centenas = ["","cento","duzentos","trezentos","quatrocentos","quinhentos","seiscentos","setecentos","oitocentos","novecentos"];
+
+      function ate999(x){
+        if(x === 0) return "";
+        if(x === 100) return "cem";
+
+        const partes = [];
+        const c = Math.floor(x / 100);
+        const r = x % 100;
+
+        if(c) partes.push(centenas[c]);
+
+        if(r >= 10 && r <= 19){
+          partes.push(especiais[r - 10]);
+        }else{
+          const d = Math.floor(r / 10);
+          const u = r % 10;
+          if(d) partes.push(dezenas[d]);
+          if(u) partes.push(unidades[u]);
+        }
+
+        return partes.join(" e ");
+      }
+
+      if(n === 0) return "zero";
+      if(n < 1000) return ate999(n);
+
+      const grupos = [];
+      const milhoes = Math.floor(n / 1000000);
+      const milhares = Math.floor((n % 1000000) / 1000);
+      const resto = n % 1000;
+
+      if(milhoes){
+        grupos.push(
+          milhoes === 1
+            ? "um milhão"
+            : `${inteiroPorExtenso(milhoes)} milhões`
+        );
+      }
+
+      if(milhares){
+        grupos.push(
+          milhares === 1
+            ? "mil"
+            : `${ate999(milhares)} mil`
+        );
+      }
+
+      if(resto){
+        grupos.push(ate999(resto));
+      }
+
+      if(grupos.length <= 1) return grupos[0];
+
+      const ultimo = grupos.pop();
+      const separador =
+        (resto > 0 && (resto < 100 || resto % 100 === 0))
+          ? " e "
+          : ", ";
+
+      return grupos.join(", ") + separador + ultimo;
+    }
+
+    function valorPorExtensoBRL(valor){
+      const totalCentavos = Math.round((Number(valor) || 0) * 100);
+      const reais = Math.floor(totalCentavos / 100);
+      const centavos = totalCentavos % 100;
+      const partes = [];
+
+      if(reais > 0){
+        partes.push(`${inteiroPorExtenso(reais)} ${reais === 1 ? "real" : "reais"}`);
+      }
+
+      if(centavos > 0){
+        partes.push(`${inteiroPorExtenso(centavos)} ${centavos === 1 ? "centavo" : "centavos"}`);
+      }
+
+      if(!partes.length) return "zero reais";
+      return partes.join(" e ");
+    }
+
+    function dataPorExtenso(dataIso){
+      if(!dataIso) return "";
+      const [ano, mes, dia] = dataIso.split("-").map(Number);
+      const meses = [
+        "janeiro","fevereiro","março","abril","maio","junho",
+        "julho","agosto","setembro","outubro","novembro","dezembro"
+      ];
+      return `${dia} de ${meses[mes - 1]} de ${ano}`;
+    }
+
+    function escapeHtml(texto){
+      return String(texto || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function receiptTemplate(dados, indiceCopia){
+      const logo = obterLogoSalva();
+
+      const cpfInline = dados.cpf_pagador
+        ? `, CPF/CNPJ <strong>${escapeHtml(dados.cpf_pagador)}</strong>`
+        : "";
+
+      const formaInline = dados.forma_pagamento
+        ? ` O pagamento foi realizado por <strong>${escapeHtml(dados.forma_pagamento)}</strong>.`
+        : "";
+
+      const telefoneLinha = dados.telefone
+        ? `<p class="optional-line"><strong>Telefone:</strong> ${escapeHtml(dados.telefone)}</p>`
+        : "";
+
+      const copyLabel = dados.duas_vias
+        ? `<div class="copy-tag">${indiceCopia === 1 ? "1ª via" : "2ª via"}</div>`
+        : "";
+
+      return `
+        <article class="receipt">
+          ${copyLabel}
+
+          <div class="receipt-header">
+            <div class="receipt-brand">
+              <div class="receipt-logo">
+                <img
+                  src="${logo}"
+                  alt="Logo do Ballet Relevê"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                />
+                <div class="placeholder" style="display:none;">🩰</div>
+              </div>
+            </div>
+
+            <h2 class="receipt-title">Recibo de Pagamento</h2>
+
+            <div class="receipt-amount-wrap">
+              <div class="receipt-amount">${escapeHtml(formatarMoeda(dados.valor))}</div>
+            </div>
+          </div>
+
+          <div class="receipt-body">
+            <p>
+              Recebemos de <strong>${escapeHtml(dados.pagador)}</strong>${cpfInline},
+              a importância de <strong>${escapeHtml(valorPorExtensoBRL(dados.valor))}</strong>,
+              referente ${escapeHtml(dados.referente_completo)}.
+            </p>
+
+            <p>
+              Para maior clareza, firmamos o presente recibo, que comprova o recebimento integral
+              do valor mencionado.${formaInline}
+            </p>
+
+            ${telefoneLinha}
+          </div>
+
+          <div class="receipt-date">
+            ${escapeHtml(dados.cidade.toUpperCase())}, ${escapeHtml(dataPorExtenso(dados.data_pagamento))}
+          </div>
+
+          <div class="signature">
+            <div class="signature-block">
+              <div class="signature-space"></div>
+              <div class="signature-line"></div>
+              <strong>${escapeHtml(dados.emissor)}</strong>
+              <small>CNPJ: ${escapeHtml(dados.cnpj_formatado)}</small>
+              ${dados.telefone ? `<small>${escapeHtml(dados.telefone)}</small>` : ""}
+            </div>
+          </div>
+
+          <div class="receipt-number-print">
+            Nº ${escapeHtml(dados.numero)}
+          </div>
+        </article>
+      `;
+    }
+
+    function abrirPreview(dados){
+      const quantidade = dados.duas_vias ? 2 : 1;
+      let html = "";
+      for(let i = 1; i <= quantidade; i++){
+        html += receiptTemplate(dados, i);
+      }
+      receiptsPreview.innerHTML = html;
+      previewModal.classList.add("open");
+      previewModal.setAttribute("aria-hidden", "false");
+    }
+
+    function fecharPreview(){
+      previewModal.classList.remove("open");
+      previewModal.setAttribute("aria-hidden", "true");
+    }
+
+    function supabaseConfigurado(){
+      return (
+        SUPABASE_URL &&
+        SUPABASE_PUBLISHABLE_KEY &&
+        !SUPABASE_URL.includes("COLE_AQUI") &&
+        !SUPABASE_PUBLISHABLE_KEY.includes("COLE_AQUI")
+      );
+    }
+
+    async function salvarNoSupabase(dados){
+      if(!supabaseConfigurado()){
+        return { salvo:false, mensagem:"Supabase ainda não configurado." };
+      }
+
+      const { data: sessionData, error: sessionError } =
+        await supabaseClient.auth.getSession();
+
+      if(sessionError || !sessionData.session){
+        mostrarApp(null);
+        throw new Error("Sessão expirada. Entre novamente.");
+      }
+
+      const payload = {
+        numero: dados.numero,
+        data_pagamento: dados.data_pagamento,
+        valor: dados.valor,
+        pagador: dados.pagador,
+        cpf_pagador: dados.cpf_pagador || null,
+        prefixo_referente: dados.prefixo_referente,
+        referente_texto: dados.referente_texto,
+        referente_completo: dados.referente_completo,
+        emissor: dados.emissor,
+        cnpj: dados.cnpj,
+        cidade: dados.cidade,
+        telefone: dados.telefone || null,
+        forma_pagamento: dados.forma_pagamento,
+        duas_vias: dados.duas_vias
+      };
+
+      const { error } = await supabaseClient
+        .from("recibos")
+        .insert(payload);
+
+      if(error){
+        throw new Error(error.message || "Erro ao salvar no Supabase.");
+      }
+
+      return {
+        salvo:true,
+        mensagem:"Recibo salvo no Supabase com sucesso."
+      };
+    }
+
+    async function gerarESalvar(){
+      if(!validarFormulario()) return;
+
+      ultimoRecibo = coletarDados();
+      btnGerar.disabled = true;
+      btnGerar.textContent = "Salvando...";
+      statusEl.textContent = "Gerando e salvando recibo...";
+
+      try{
+        const resultado = await salvarNoSupabase(ultimoRecibo);
+        statusEl.textContent = resultado.mensagem;
+        abrirPreview(ultimoRecibo);
+      }catch(erro){
+        console.error(erro);
+        statusEl.textContent = "O recibo foi gerado, mas houve erro ao salvar no Supabase.";
+        abrirPreview(ultimoRecibo);
+      }finally{
+        btnGerar.disabled = false;
+        btnGerar.textContent = "📄 Gerar Recibo";
+      }
+    }
+
+    function verRecibo(){
+      if(!validarFormulario()) return;
+      ultimoRecibo = coletarDados();
+      abrirPreview(ultimoRecibo);
+    }
+
+    function nomeArquivoSeguro(texto){
+      return String(texto || "recibo")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "")
+        .slice(0, 60);
+    }
+
+    function aguardarImagens(elemento){
+      const imagens = Array.from(elemento.querySelectorAll("img"));
+      return Promise.all(
+        imagens.map(img => {
+          if(img.complete) return Promise.resolve();
+          return new Promise(resolve => {
+            img.addEventListener("load", resolve, { once:true });
+            img.addEventListener("error", resolve, { once:true });
+          });
+        })
+      );
+    }
+
+    async function gerarPDF(){
+      if(!validarFormulario()) return;
+
+      if(typeof html2canvas === "undefined" || !window.jspdf){
+        statusEl.textContent = "Não foi possível carregar o gerador de PDF. Verifique sua conexão com a internet e tente novamente.";
+        return;
+      }
+
+      ultimoRecibo = coletarDados();
+      abrirPreview(ultimoRecibo);
+
+      const botoesPDF = [btnPDF, btnPdfInside].filter(Boolean);
+      const textosOriginais = botoesPDF.map(btn => btn.innerHTML);
+
+      botoesPDF.forEach(btn => {
+        btn.disabled = true;
+        btn.innerHTML = "Gerando PDF...";
+      });
+
+      statusEl.textContent = "Gerando PDF...";
+
+      try{
+        // Dá tempo para o modal, a logo e o layout terminarem de renderizar.
+        await new Promise(resolve => setTimeout(resolve, 250));
+
+        const recibos = Array.from(
+          document.querySelectorAll("#receiptsPreview .receipt")
+        );
+
+        if(!recibos.length){
+          throw new Error("Nenhum recibo encontrado para gerar o PDF.");
+        }
+
+        await Promise.all(recibos.map(aguardarImagens));
+
+        const canvases = [];
+
+        for(const recibo of recibos){
+          const canvas = await html2canvas(recibo, {
+            scale: 2.5,
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: "#ffffff",
+            logging: false,
+            scrollX: 0,
+            scrollY: -window.scrollY
+          });
+
+          canvases.push(canvas);
+        }
+
+        const { jsPDF } = window.jspdf;
+
+        // O PDF terá o mesmo formato horizontal do recibo,
+        // sem a grande folha A4 em branco ao redor.
+        const larguraPaginaMM = 260;
+        const proporcaoPrimeiro = canvases[0].height / canvases[0].width;
+        const alturaPaginaMM = larguraPaginaMM * proporcaoPrimeiro;
+
+        const pdf = new jsPDF({
+          orientation: "landscape",
+          unit: "mm",
+          format: [larguraPaginaMM, alturaPaginaMM],
+          compress: true
+        });
+
+        canvases.forEach((canvas, index) => {
+          if(index > 0){
+            const proporcao = canvas.height / canvas.width;
+            const altura = larguraPaginaMM * proporcao;
+            pdf.addPage([larguraPaginaMM, altura], "landscape");
+          }
+
+          const paginaAtual = pdf.internal.pageSize;
+          const largura = paginaAtual.getWidth();
+          const altura = paginaAtual.getHeight();
+
+          const imagem = canvas.toDataURL("image/jpeg", 0.96);
+          pdf.addImage(imagem, "JPEG", 0, 0, largura, altura, undefined, "FAST");
+        });
+
+        const pagadorNome = nomeArquivoSeguro(ultimoRecibo.pagador);
+        const numero = nomeArquivoSeguro(ultimoRecibo.numero);
+
+        pdf.save(`Recibo_Ballet_Releve_${pagadorNome}_${numero}.pdf`);
+
+        statusEl.textContent = "PDF gerado com sucesso.";
+      }catch(erro){
+        console.error(erro);
+        statusEl.textContent = "Não foi possível gerar o PDF. Tente novamente.";
+      }finally{
+        botoesPDF.forEach((btn, i) => {
+          btn.disabled = false;
+          btn.innerHTML = textosOriginais[i];
+        });
+      }
+    }
+
+    function imprimirRecibo(){
+      if(!validarFormulario()) return;
+      ultimoRecibo = coletarDados();
+      abrirPreview(ultimoRecibo);
+      setTimeout(() => window.print(), 180);
+    }
+
+    function limparTudo(){
+      form.reset();
+      emissor.value = EMPRESA.nome;
+      cnpjEmissor.value = EMPRESA.cnpjFormatado;
+      cidade.value = EMPRESA.cidade;
+      dataPagamento.value = hojeISO();
+      document.querySelector('input[name="prefixo"][value="à"]').checked = true;
+      document.querySelector('input[name="formaPagamento"][value="Pix"]').checked = true;
+      statusEl.textContent = "";
+      ultimoRecibo = null;
+      valor.focus();
+    }
+
+    loginForm.addEventListener("submit", entrar);
+    btnSair.addEventListener("click", sair);
+
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+      mostrarApp(session);
+    });
+
+    btnVer.addEventListener("click", verRecibo);
+    btnPDF.addEventListener("click", gerarPDF);
+    btnImprimir.addEventListener("click", imprimirRecibo);
+    btnGerar.addEventListener("click", gerarESalvar);
+    btnLimpar.addEventListener("click", limparTudo);
+    btnFecharModal.addEventListener("click", fecharPreview);
+    btnPdfInside.addEventListener("click", gerarPDF);
+    btnPrintInside.addEventListener("click", () => window.print());
+
+    previewModal.addEventListener("click", (e) => {
+      if(e.target === previewModal) fecharPreview();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") fecharPreview();
+    });
+
+    dataPagamento.value = hojeISO();
+    emissor.value = EMPRESA.nome;
+    cnpjEmissor.value = EMPRESA.cnpjFormatado;
+    cidade.value = EMPRESA.cidade;
+
+    verificarSessao();
+  </script>
+</body>
+</html>
